@@ -1,41 +1,41 @@
 ﻿using BepInEx.Configuration;
-using HenryMod.Modules;
-using HenryMod.Modules.Characters;
-using HenryMod.Survivors.Henry.Components;
-using HenryMod.Survivors.Henry.SkillStates;
+using UndertakerMod.Modules;
+using UndertakerMod.Modules.Characters;
+using UndertakerMod.Survivors.Undertaker.Components;
+using UndertakerMod.Survivors.Undertaker.SkillStates;
 using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HenryMod.Survivors.Henry
+namespace UndertakerMod.Survivors.Undertaker
 {
-    public class HenrySurvivor : SurvivorBase<HenrySurvivor>
+    public class UndertakerSurvivor : SurvivorBase<UndertakerSurvivor>
     {
         //used to load the assetbundle for this character. must be unique
         public override string assetBundleName => "undertakerbundle"; //if you do not change this, you are giving permission to deprecate the mod
 
         //the name of the prefab we will create. conventionally ending in "Body". must be unique
-        public override string bodyName => "HenryBody"; //if you do not change this, you get the point by now
+        public override string bodyName => "UndertakerBody"; //if you do not change this, you get the point by now
 
         //name of the ai master for vengeance and goobo. must be unique
-        public override string masterName => "HenryMonsterMaster"; //if you do not
+        public override string masterName => "UndertakerMonsterMaster"; //if you do not
 
         //the names of the prefabs you set up in unity that we will use to build your character
         public override string modelPrefabName => "mdlHenry";
         public override string displayPrefabName => "HenryDisplay";
 
-        public const string HENRY_PREFIX = HenryPlugin.DEVELOPER_PREFIX + "_HENRY_";
+        public const string UNDERTAKER_PREFIX = UndertakerPlugin.DEVELOPER_PREFIX + "_UNDERTAKER_";
 
         //used when registering your survivor's language tokens
-        public override string survivorTokenPrefix => HENRY_PREFIX;
+        public override string survivorTokenPrefix => UNDERTAKER_PREFIX;
         
         public override BodyInfo bodyInfo => new BodyInfo
         {
             bodyName = bodyName,
-            bodyNameToken = HENRY_PREFIX + "NAME",
-            subtitleNameToken = HENRY_PREFIX + "SUBTITLE",
+            bodyNameToken = UNDERTAKER_PREFIX + "NAME",
+            subtitleNameToken = UNDERTAKER_PREFIX + "SUBTITLE",
 
             characterPortrait = assetBundle.LoadAsset<Texture>("texHenryIcon"),
             bodyColor = Color.white,
@@ -68,10 +68,10 @@ namespace HenryMod.Survivors.Henry
                 }
         };
 
-        public override UnlockableDef characterUnlockableDef => HenryUnlockables.characterUnlockableDef;
+        public override UnlockableDef characterUnlockableDef => UndertakerUnlockables.characterUnlockableDef;
 
         [Obsolete("will be deprecated with Hallowed Concepts update. move to using IDRSJson from KingEnderBrine")]
-        public override ItemDisplaysBase itemDisplays => null;// new HenryItemDisplays();
+        public override ItemDisplaysBase itemDisplays => null;// new UndertakerItemDisplays();
 
         //set in base classes
         public override AssetBundle assetBundle { get; protected set; }
@@ -85,7 +85,7 @@ namespace HenryMod.Survivors.Henry
         public override void Initialize()
         {
             //uncomment if you have multiple characters
-            //ConfigEntry<bool> characterEnabled = Config.CharacterEnableConfig("Survivors", "Henry");
+            //ConfigEntry<bool> characterEnabled = Config.CharacterEnableConfig("Survivors", "Undertaker");
 
             //if (!characterEnabled.Value)
             //    return;
@@ -96,16 +96,16 @@ namespace HenryMod.Survivors.Henry
         public override void InitializeCharacter()
         {
             //need the character unlockable before you initialize the survivordef
-            HenryUnlockables.Init();
+            UndertakerUnlockables.Init();
 
             base.InitializeCharacter();
 
-            HenryConfig.Init();
-            HenryStates.Init();
-            HenryTokens.Init();
+            UndertakerConfig.Init();
+            UndertakerStates.Init();
+            UndertakerTokens.Init();
 
-            HenryAssets.Init(assetBundle);
-            HenryBuffs.Init(assetBundle);
+            UndertakerAssets.Init(assetBundle);
+            UndertakerBuffs.Init(assetBundle);
 
             InitializeEntityStateMachines();
             InitializeSkills();
@@ -120,7 +120,7 @@ namespace HenryMod.Survivors.Henry
         private void AdditionalBodySetup()
         {
             AddHitboxes();
-            bodyPrefab.AddComponent<HenryWeaponComponent>();
+            bodyPrefab.AddComponent<UndertakerWeaponComponent>();
             //bodyPrefab.AddComponent<HuntressTrackerComopnent>();
             //anything else here
         }
@@ -140,7 +140,7 @@ namespace HenryMod.Survivors.Henry
             //the main "Body" state machine has some special properties
             Prefabs.AddMainEntityStateMachine(bodyPrefab, "Body", typeof(EntityStates.GenericCharacterMain), typeof(EntityStates.SpawnTeleporterState));
             //if you set up a custom main characterstate, set it up here
-                //don't forget to register custom entitystates in your HenryStates.cs
+                //don't forget to register custom entitystates in your UndertakerStates.cs
 
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon");
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon2");
@@ -167,8 +167,8 @@ namespace HenryMod.Survivors.Henry
             bodyPrefab.GetComponent<SkillLocator>().passiveSkill = new SkillLocator.PassiveSkill
             {
                 enabled = true,
-                skillNameToken = HENRY_PREFIX + "PASSIVE_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "PASSIVE_DESCRIPTION",
+                skillNameToken = UNDERTAKER_PREFIX + "PASSIVE_NAME",
+                skillDescriptionToken = UNDERTAKER_PREFIX + "PASSIVE_DESCRIPTION",
                 keywordToken = "KEYWORD_STUNNING",
                 icon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
             };
@@ -177,9 +177,9 @@ namespace HenryMod.Survivors.Henry
             GenericSkill passiveGenericSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "PassiveSkill");
             SkillDef passiveSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = "HenryPassive",
-                skillNameToken = HENRY_PREFIX + "PASSIVE_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "PASSIVE_DESCRIPTION",
+                skillName = "UndertakerPassive",
+                skillNameToken = UNDERTAKER_PREFIX + "PASSIVE_NAME",
+                skillDescriptionToken = UNDERTAKER_PREFIX + "PASSIVE_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
                 skillIcon = assetBundle.LoadAsset<Sprite>("texPassiveIcon"),
 
@@ -221,9 +221,9 @@ namespace HenryMod.Survivors.Henry
             //it is also a SteppedSkillDef. Custom Skilldefs are very useful for custom behaviors related to casting a skill. see ror2's different skilldefs for reference
             SteppedSkillDef primarySkillDef1 = Skills.CreateSkillDef<SteppedSkillDef>(new SkillDefInfo
                 (
-                    "HenrySlash",
-                    HENRY_PREFIX + "PRIMARY_SLASH_NAME",
-                    HENRY_PREFIX + "PRIMARY_SLASH_DESCRIPTION",
+                    "UndertakerSlash",
+                    UNDERTAKER_PREFIX + "PRIMARY_SLASH_NAME",
+                    UNDERTAKER_PREFIX + "PRIMARY_SLASH_DESCRIPTION",
                     assetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
                     new EntityStates.SerializableEntityStateType(typeof(SkillStates.SlashCombo)),
                     "Weapon",
@@ -243,9 +243,9 @@ namespace HenryMod.Survivors.Henry
             //here is a basic skill def with all fields accounted for
             SkillDef secondarySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = "HenryGun",
-                skillNameToken = HENRY_PREFIX + "SECONDARY_GUN_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "SECONDARY_GUN_DESCRIPTION",
+                skillName = "UndertakerGun",
+                skillNameToken = UNDERTAKER_PREFIX + "SECONDARY_GUN_NAME",
+                skillDescriptionToken = UNDERTAKER_PREFIX + "SECONDARY_GUN_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
 
@@ -283,9 +283,9 @@ namespace HenryMod.Survivors.Henry
             //here's a skilldef of a typical movement skill.
             SkillDef utilitySkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = "HenryRoll",
-                skillNameToken = HENRY_PREFIX + "UTILITY_ROLL_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "UTILITY_ROLL_DESCRIPTION",
+                skillName = "UndertakerRoll",
+                skillNameToken = UNDERTAKER_PREFIX + "UTILITY_ROLL_NAME",
+                skillDescriptionToken = UNDERTAKER_PREFIX + "UTILITY_ROLL_DESCRIPTION",
                 skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Roll)),
@@ -321,9 +321,9 @@ namespace HenryMod.Survivors.Henry
             //a basic skill. some fields are omitted and will just have default values
             SkillDef specialSkillDef1 = Skills.CreateSkillDef(new SkillDefInfo
             {
-                skillName = "HenryBomb",
-                skillNameToken = HENRY_PREFIX + "SPECIAL_BOMB_NAME",
-                skillDescriptionToken = HENRY_PREFIX + "SPECIAL_BOMB_DESCRIPTION",
+                skillName = "UndertakerBomb",
+                skillNameToken = UNDERTAKER_PREFIX + "SPECIAL_BOMB_NAME",
+                skillDescriptionToken = UNDERTAKER_PREFIX + "SPECIAL_BOMB_DESCRIPTION",
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.ThrowBomb)),
@@ -375,11 +375,11 @@ namespace HenryMod.Survivors.Henry
             #region MasterySkin
             
             ////creating a new skindef as we did before
-            //SkinDef masterySkin = Modules.Skins.CreateSkinDef(HENRY_PREFIX + "MASTERY_SKIN_NAME",
+            //SkinDef masterySkin = Modules.Skins.CreateSkinDef(UNDERTAKER_PREFIX + "MASTERY_SKIN_NAME",
             //    assetBundle.LoadAsset<Sprite>("texMasteryAchievement"),
             //    defaultRendererinfos,
             //    prefabCharacterModel.gameObject,
-            //    HenryUnlockables.masterySkinUnlockableDef);
+            //    UndertakerUnlockables.masterySkinUnlockableDef);
 
             ////adding the mesh replacements as above. 
             ////if you don't want to replace the mesh (for example, you only want to replace the material), pass in null so the order is preserved
@@ -422,7 +422,7 @@ namespace HenryMod.Survivors.Henry
             //Modules.Prefabs.CloneDopplegangerMaster(bodyPrefab, masterName, "Merc");
 
             //how to set up AI in code
-            HenryAI.Init(bodyPrefab, masterName);
+            UndertakerAI.Init(bodyPrefab, masterName);
 
             //how to load a master set up in unity, can be an empty gameobject with just AISkillDriver components
             //assetBundle.LoadMaster(bodyPrefab, masterName);
@@ -436,7 +436,7 @@ namespace HenryMod.Survivors.Henry
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
         {
 
-            if (sender.HasBuff(HenryBuffs.armorBuff))
+            if (sender.HasBuff(UndertakerBuffs.armorBuff))
             {
                 args.armorAdd += 300;
             }

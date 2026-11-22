@@ -1,4 +1,4 @@
-﻿namespace HenryMod.Modules
+﻿namespace UndertakerMod.Modules
 {
     internal static class Tokens
     {

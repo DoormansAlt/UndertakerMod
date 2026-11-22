@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HenryMod.Modules
+namespace UndertakerMod.Modules
 {
     internal static class ItemDisplays
     {

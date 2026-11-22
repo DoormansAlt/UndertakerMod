@@ -1,8 +1,8 @@
-﻿using HenryMod.Survivors.Henry.SkillStates;
+﻿using UndertakerMod.Survivors.Undertaker.SkillStates;
 
-namespace HenryMod.Survivors.Henry
+namespace UndertakerMod.Survivors.Undertaker
 {
-    public static class HenryStates
+    public static class UndertakerStates
     {
         public static void Init()
         {

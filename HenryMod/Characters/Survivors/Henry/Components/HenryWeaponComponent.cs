@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace HenryMod.Survivors.Henry.Components
+namespace UndertakerMod.Survivors.Undertaker.Components
 {
-    internal class HenryWeaponComponent : MonoBehaviour
+    internal class UndertakerWeaponComponent : MonoBehaviour
     {
         private void Awake()
         {

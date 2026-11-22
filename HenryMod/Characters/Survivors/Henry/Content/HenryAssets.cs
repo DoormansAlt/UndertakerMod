@@ -1,12 +1,12 @@
 ﻿using RoR2;
 using UnityEngine;
-using HenryMod.Modules;
+using UndertakerMod.Modules;
 using System;
 using RoR2.Projectile;
 
-namespace HenryMod.Survivors.Henry
+namespace UndertakerMod.Survivors.Undertaker
 {
-    public static class HenryAssets
+    public static class UndertakerAssets
     {
         // particle effects
         public static GameObject swordSwingEffect;
@@ -76,7 +76,7 @@ namespace HenryMod.Survivors.Henry
         private static void CreateBombProjectile()
         {
             //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
-            bombProjectilePrefab = Asset.CloneProjectilePrefab("CommandoGrenadeProjectile", "HenryBombProjectile");
+            bombProjectilePrefab = Asset.CloneProjectilePrefab("CommandoGrenadeProjectile", "UndertakerBombProjectile");
 
             //remove their ProjectileImpactExplosion component and start from default values
             UnityEngine.Object.Destroy(bombProjectilePrefab.GetComponent<ProjectileImpactExplosion>());

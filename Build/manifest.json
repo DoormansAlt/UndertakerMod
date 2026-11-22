@@ -1,9 +1,9 @@
 {
-    "name": "NotHenry",
-    "author": "NotRob",
-    "version_number": "0.0.0",
+    "name": "UndertakerMod",
+    "author": "ROBLO",
+    "version_number": "0.1.0",
     "website_url": "",
-    "description": "I have not changed the manifest and now my mod will be deprecated",
+    "description": "Adds the Undertaker, a new playable survivor.",
     "dependencies": [
         "bbepis-BepInExPack-5.4.1905",
         "RiskofThunder-R2API_Core-5.0.3",

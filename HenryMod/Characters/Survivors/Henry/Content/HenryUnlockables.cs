@@ -1,10 +1,10 @@
-﻿using HenryMod.Survivors.Henry.Achievements;
+﻿using UndertakerMod.Survivors.Undertaker.Achievements;
 using RoR2;
 using UnityEngine;
 
-namespace HenryMod.Survivors.Henry
+namespace UndertakerMod.Survivors.Undertaker
 {
-    public static class HenryUnlockables
+    public static class UndertakerUnlockables
     {
         public static UnlockableDef characterUnlockableDef = null;
         public static UnlockableDef masterySkinUnlockableDef = null;
@@ -12,9 +12,9 @@ namespace HenryMod.Survivors.Henry
         public static void Init()
         {
             masterySkinUnlockableDef = Modules.Content.CreateAndAddUnlockbleDef(
-                HenryMasteryAchievement.unlockableIdentifier,
-                Modules.Tokens.GetAchievementNameToken(HenryMasteryAchievement.identifier),
-                HenrySurvivor.instance.assetBundle.LoadAsset<Sprite>("texMasteryAchievement"));
+                UndertakerMasteryAchievement.unlockableIdentifier,
+                Modules.Tokens.GetAchievementNameToken(UndertakerMasteryAchievement.identifier),
+                UndertakerSurvivor.instance.assetBundle.LoadAsset<Sprite>("texMasteryAchievement"));
         }
     }
 }
