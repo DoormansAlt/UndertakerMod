@@ -44,9 +44,13 @@ namespace UndertakerMod.Survivors.Undertaker
             crosshair = Asset.LoadCrosshair("Standard"),
             podPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod"),
 
-            maxHealth = 110f,
-            healthRegen = 1.5f,
-            armor = 0f,
+            //base stats (see Undertaker Kit Design). level-up gains are calculated automatically:
+            //+30% health (+48), +20% regen (+0.5) and +2.4 damage per level
+            maxHealth = 160f,
+            healthRegen = 2.5f,
+            armor = 20f,
+            damage = 12f,
+            moveSpeed = 7f,
 
             jumpCount = 1,
         };
